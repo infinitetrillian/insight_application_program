@@ -23,8 +23,9 @@ with open('itcont.txt') as input_file:
     for line in input_file.readlines():
         contents = line.split('|')
 
+        
         if contents[OTHER_ID]:
-            continue
+            continue 
         if not contents[CMTE_ID]:
             continue
         if not contents[NAME]:
@@ -52,7 +53,7 @@ with open('itcont.txt') as input_file:
             transaction_dt = datetime.date(year, month, day)
         except:
             continue
-
+       # print(cmte_id, zip_code, transaction_dt.year, sorted(recipient_cont[cmte_zip])[percentile_index-1], sum(recipient_cont[cmte_zip]), len(recipient_cont[cmte_zip]))
         unique_id = name + zip_code
         cmte_zip = cmte_id+zip_code
         if unique_id not in contributions:
@@ -66,20 +67,9 @@ with open('itcont.txt') as input_file:
                 recipient_cont[cmte_zip].append(transaction_amt)
                 percentile_index = (percentile / 100.0) * len(recipient_cont[cmte_zip])
                 percentile_index = int(percentile_index)  #not rounding up as our index starts at 0
-                output.writelines(cmte_zip + '|'+ zip_code + "|"+ str(transaction_dt.year) +"|"+ str(sorted(recipient_cont[cmte_zip])[percentile_index]) + "|"+ str(len(recipient_cont[cmte_zip])) + '\n')
-             
-               # pr[cmte_zip] = []
-	#	pr[cmte_zip].append(("|"
-            #    for key, value in ():
-        
-                  #  output
-                   # output_file.write(str(value))
-                   # output_file.write('\n')
-                    
-#output.write(cmte_id, "|", zip_code, "|", transaction_dt.year, "|", sorted(recipient_cont[cmte_zip])[percentile_index], "|", len(recipient_cont[cmte_zip]),'\n')
-
+              #  print(cmte_id, zip_code, transaction_dt.year, sorted(recipient_cont[cmte_zip])[percentile_index-1], sum(recipient_cont[cmte_zip]), len(recipient_cont[cmte_zip]))
+                output.writelines(cmte_zip + '|'+ zip_code + "|"+ str(transaction_dt.year) +"|"+ str(sorted(recipient_cont[cmte_zip])[percentile_index]) + "|" + str(sum(recipient_cont[cmte_zip])) + '|'+ str(len(recipient_cont[cmte_zip])) + '\n')
+      
 output.close()
-#   print(cmte_id, zip_code, transaction_dt.year, sorted(recipient_cont[cmte_zip])[percentile_index-1], sum(recipient_cont[cmte_zip]), len(recipient_cont[cmte_zip]))
-               # with open('repeat_donors.txt', 'w') as output_file:
 
 
